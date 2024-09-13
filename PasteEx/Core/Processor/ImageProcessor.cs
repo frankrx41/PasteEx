@@ -15,7 +15,7 @@ namespace PasteEx.Core.Processor
 {
     public class ImageProcessor : BaseProcessor
     {
-        public static readonly string[] imageExt = { "ico", "bmp", "gif", "jpg", "png" };
+        public static readonly string[] imageExt = { "ico", "bmp", "gif", "jpg", "jpg-low", "jpg-medium", "png" };
 
         private string imageUrl;
 
@@ -129,8 +129,18 @@ namespace PasteEx.Core.Processor
                         // High quality of JPG
                         // https://stackoverflow.com/questions/1484759/quality-of-a-saved-jpg-in-c-sharp
                         var encoder = ImageCodecInfo.GetImageEncoders().First(c => c.FormatID == ImageFormat.Jpeg.Guid);
-                        var encParams = new EncoderParameters() { Param = new[] { new EncoderParameter(Encoder.Quality, 100L) } };
-                        bitmap.Save(path, encoder, encParams);
+                        var encParamsHigh = new EncoderParameters() { Param = new[] { new EncoderParameter(Encoder.Quality, 100L) } };
+                        bitmap.Save(path, encoder, encParamsHigh);
+                        break;
+                    case "jpg-low":
+                        encoder = ImageCodecInfo.GetImageEncoders().First(c => c.FormatID == ImageFormat.Jpeg.Guid);
+                        var encParamsLow = new EncoderParameters() { Param = new[] { new EncoderParameter(Encoder.Quality, 50L) } };
+                        bitmap.Save(path, encoder, encParamsLow);
+                        break;
+                    case "jpg-medium":
+                        encoder = ImageCodecInfo.GetImageEncoders().First(c => c.FormatID == ImageFormat.Jpeg.Guid);
+                        var encParamsMedium = new EncoderParameters() { Param = new[] { new EncoderParameter(Encoder.Quality, 75L) } };
+                        bitmap.Save(path, encoder, encParamsMedium);
                         break;
                     case "bmp":
                         bitmap.Save(path, ImageFormat.Bmp);
