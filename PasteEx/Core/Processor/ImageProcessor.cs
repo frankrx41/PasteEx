@@ -135,12 +135,12 @@ namespace PasteEx.Core.Processor
                     case "jpg-low":
                         encoder = ImageCodecInfo.GetImageEncoders().First(c => c.FormatID == ImageFormat.Jpeg.Guid);
                         var encParamsLow = new EncoderParameters() { Param = new[] { new EncoderParameter(Encoder.Quality, 50L) } };
-                        bitmap.Save(path, encoder, encParamsLow);
+                        bitmap.Save(path + ".jpg", encoder, encParamsLow);
                         break;
                     case "jpg-medium":
                         encoder = ImageCodecInfo.GetImageEncoders().First(c => c.FormatID == ImageFormat.Jpeg.Guid);
                         var encParamsMedium = new EncoderParameters() { Param = new[] { new EncoderParameter(Encoder.Quality, 75L) } };
-                        bitmap.Save(path, encoder, encParamsMedium);
+                        bitmap.Save(path + ".jpg", encoder, encParamsMedium);
                         break;
                     case "bmp":
                         bitmap.Save(path, ImageFormat.Bmp);
